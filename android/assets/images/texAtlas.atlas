@@ -3,7 +3,7 @@ texAtlas.png
 size: 2048,2048
 format: RGBA8888
 filter: Nearest,Nearest
-repeat: none
+dup: none
 a
   rotate: false
   xy: 1900, 1034
@@ -39,7 +39,7 @@ bolt1
   orig: 256, 128
   offset: 0, 0
   index: -1
-p1
+dup
   rotate: false
   xy: 2, 648
   size: 348, 478
@@ -380,7 +380,7 @@ texAtlas2.png
 size: 2048,1024
 format: RGBA8888
 filter: Nearest,Nearest
-repeat: none
+dup: none
 tile
   rotate: false
   xy: 2, 518
