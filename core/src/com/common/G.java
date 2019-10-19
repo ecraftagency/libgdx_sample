@@ -1,19 +1,16 @@
 package com.common;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+import com.badlogic.gdx.utils.Align;
 
 public class G {
   public static class A <T extends Actor> {
@@ -83,10 +80,27 @@ public class G {
       return this;
     }
 
-    public A clip(float x, float y, float w, float h) {
-      if (Group.class.isAssignableFrom(t.getClass())) {
-        Group g = (Group)t;
-        g.clipBegin(x, y, w, h);
+    //LABEL extend only region
+    public A la(int align) {
+      if (Label.class.isAssignableFrom(t.getClass())) {
+        Label i = (Label) t;
+        i.setAlignment(align);
+      }
+      return this;
+    }
+
+    public A style(Label.LabelStyle ls) {
+      if (Label.class.isAssignableFrom(t.getClass())) {
+        Label l = (Label)t;
+        l.setStyle(ls);
+      }
+      return this;
+    }
+
+    public A text(CharSequence txt) {
+      if (Label.class.isAssignableFrom(t.getClass())) {
+        Label l = (Label)t;
+        l.setText(txt);
       }
       return this;
     }

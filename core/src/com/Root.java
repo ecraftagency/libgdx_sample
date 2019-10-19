@@ -14,6 +14,7 @@ import com.common.G;
 import com.common.X;
 import com.common.XGame;
 import com.games.LinearAlgebra;
+import com.games.TweenEngine;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
@@ -30,12 +31,13 @@ public class Root implements ApplicationListener {
     games.add(MauBinh.class);
     games.add(Mask.class);
     games.add(LinearAlgebra.class);
+    games.add(TweenEngine.class);
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public void create() {
-    X.init(X.ATLAS);
+    X.init(X.ATLAS | X.FONT);
     VisUI.load();
 
     rootUI = new Stage(new ScreenViewport());
@@ -57,7 +59,7 @@ public class Root implements ApplicationListener {
       }
     });
     initGameList(select);
-    select.setSelectedIndex(2);
+    select.setSelectedIndex(3);
 
     Table root = (Table) G.c(Table.class).add(rootUI).ub();
     root.setFillParent(true);root.pad(10);

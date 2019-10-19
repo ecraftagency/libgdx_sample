@@ -57,7 +57,6 @@ public class LinearAlgebra extends XGame {
     /*lấy đọa độ gameworld nhân nghịch đảo ma trận chiếu để ra tọa độ màn hình*/
     batch.draw(tg, 0f, 0,tg.getRegionWidth()*PPM, tg.getRegionHeight()*PPM);
     batch.end();
-
   }
 
   @Override

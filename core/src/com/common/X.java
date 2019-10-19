@@ -31,6 +31,7 @@ public class X { //XAssetManager
   public static int SHAD   = 1<<3;
   public static int SND    = 1<<4;
   public static int MUS    = 1<<5;
+  public static int FONT   = 1<<6;
 
   private AssetManager assetManager;
   public static X inst = new X();
@@ -79,6 +80,10 @@ public class X { //XAssetManager
     if ((mask&MUS) != 0) {
       inst.initResourcePath(".*\\.mp3", "music/", inst.musicPaths);
       inst.loadMusic();
+    }
+    if ((mask&FONT) != 0) {
+      inst.initResourcePath(".*\\.mp3", "font/", inst.bitmapFontPaths);
+      inst.loadBitmapFont();
     }
   }
 

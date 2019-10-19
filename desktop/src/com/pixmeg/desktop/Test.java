@@ -19,7 +19,8 @@ public class Test {
   }
   public static void main(String[] arg) {
     //Array<Integer> cards = M.makeCards();
-    Array<Integer> cards = MB.makeCards();
+    //Array<Integer> cards = MB.makeCards();
+    P.makeCards();
     //TEST CASE 1
 //    int[] pattern = new int[] {
 //      M.nameMap.getKey("AC", false),
@@ -194,7 +195,19 @@ public class Test {
 
 
       //P.test(2);
-      P.test2();
+      //P.test2();
+      Array<Integer> c1 = new Array<>();
+      c1.add(P.nameMap.getKey("10R", false));
+      c1.add(P.nameMap.getKey("10C", false));
+      c1.add(P.nameMap.getKey("9C", false));
+
+
+      Array<Integer> c2 = new Array<>();
+      c2.add(P.nameMap.getKey("10C", false));
+      c2.add(P.nameMap.getKey("10Ch", false));
+      c2.add(P.nameMap.getKey("9C", false));
+
+      System.out.println(P.compare(c1, c2));
   }
 }
 

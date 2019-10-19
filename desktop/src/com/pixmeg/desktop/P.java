@@ -240,10 +240,10 @@ public class P {
     if (tA > tB) return 1;
     if (tA < tB) return -1;
 
-    int vA = rA&valueMask;
-    int vB = rB&valueMask;
-    if (vA > vB) return 1;
-    if (vA < vB) return -1;
+//    int vA = rA&valueMask;
+//    int vB = rB&valueMask;
+//    if (vA > vB) return 1;
+//    if (vA < vB) return -1;
 
     int sA = 0,sB = 0,aA = 0, aB = 0;
     for (int i = 0; i < patternA.size; i++) {
