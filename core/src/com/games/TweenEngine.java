@@ -13,19 +13,10 @@ import com.common.G;
 import com.common.XGame;
 import com.common.tween.A;
 
-import java.sql.Time;
-
-import javax.naming.TimeLimitExceededException;
-
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.paths.CatmullRom;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import aurelienribon.tweenengine.TweenPath;
-import aurelienribon.tweenengine.equations.Elastic;
-import aurelienribon.tweenengine.equations.Linear;
 
 //https://github.com/dsaltares/libgdx-cookbook
 public class TweenEngine extends XGame {

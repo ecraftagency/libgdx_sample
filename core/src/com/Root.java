@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.common.G;
 import com.common.X;
 import com.common.XGame;
+import com.games.CardDeal;
 import com.games.LinearAlgebra;
 import com.games.TweenEngine;
 import com.kotcrab.vis.ui.VisUI;
@@ -32,6 +33,7 @@ public class Root implements ApplicationListener {
     games.add(Mask.class);
     games.add(LinearAlgebra.class);
     games.add(TweenEngine.class);
+    games.add(CardDeal.class);
   }
 
   @SuppressWarnings("unchecked")
@@ -59,7 +61,7 @@ public class Root implements ApplicationListener {
       }
     });
     initGameList(select);
-    select.setSelectedIndex(3);
+    select.setSelectedIndex(4);
 
     Table root = (Table) G.c(Table.class).add(rootUI).ub();
     root.setFillParent(true);root.pad(10);

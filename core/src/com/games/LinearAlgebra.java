@@ -18,7 +18,7 @@ public class LinearAlgebra extends XGame {
   @Override
   public void _create() {
     float ratio = Gdx.graphics.getHeight()/(Gdx.graphics.getWidth()*1f);
-    float w = 20,h; // chiều dài + cao game world, mình định nghĩa
+    float w = 10,h; // chiều dài + cao game world, mình định nghĩa
 
     //ở đây mình định nghĩa phép chiếu từ thế giới [20, 11.25] ra màn hình [1280, 720]
     //ma trận chiếu sẽ đứng giữa 2 hệ tọa độ này.
@@ -55,7 +55,7 @@ public class LinearAlgebra extends XGame {
     batch.begin();
     //Ở ĐÂY LÀ CHIẾU TỪ TỌA ĐỘ GAME WORLD RA TỌA ĐỘ MÀN HÌNH
     /*lấy đọa độ gameworld nhân nghịch đảo ma trận chiếu để ra tọa độ màn hình*/
-    batch.draw(tg, 0f, 0,tg.getRegionWidth()*PPM, tg.getRegionHeight()*PPM);
+    batch.draw(tg, 2, 0,tg.getRegionWidth()*PPM, tg.getRegionHeight()*PPM);
     batch.end();
   }
 
