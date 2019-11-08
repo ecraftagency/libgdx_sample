@@ -10,8 +10,8 @@ import java.util.TreeMap;
 
 public class MV2 {
   public static final ArrayMap<Integer, String> nameMap = new ArrayMap<>();
-  private static int valueMask = Integer.parseInt("00001111111111111", 2);
-  private static int typeMask = Integer.parseInt( "11110000000000000", 2);
+  public static final int valueMask = Integer.parseInt("00001111111111111", 2);
+  public static final int typeMask = Integer.parseInt( "11110000000000000", 2);
   private static TreeMap<Integer, Array<Integer>> simMap;
   private static TreeMap<Integer, Array<Integer>> rsimMap = new TreeMap<>(Collections.reverseOrder());
   private static Array<Array<Integer>> color = new Array<>();
@@ -23,41 +23,63 @@ public class MV2 {
   }
 
   static Array<Array<Integer>> move(Array<Integer> pattern) {
-    Array<Integer> low = pairMove(pattern);
+    Array<Boolean> skipMask = new Array<>();
+    skipMask.add(true);skipMask.add(true);
+    Array<Integer> cpy = new Array<>();
+    for (Integer i : pattern) cpy.add(i);
+
+    Array<Integer> low = pairMove(pattern, skipMask);
     pattern.removeAll(low, false);
-    Array<Integer> mid = pairMove(pattern);
+    Array<Integer> mid = pairMove(pattern, skipMask);
     pattern.removeAll(mid, false);
     Array<Array<Integer>> res = new Array<>();
 
     res.add(pattern);
     res.add(mid);
     res.add(low);
+
+    if (check5(mid)>>13 == 0) {
+      skipMask.clear();
+      skipMask.add(true);skipMask.add(false);
+      low = pairMove(cpy, skipMask);
+      cpy.removeAll(low, false);
+      skipMask.clear();skipMask.add(true);skipMask.add(true);
+      mid = pairMove(cpy, skipMask);
+      cpy.removeAll(mid, false);
+      res.clear();
+      res.add(cpy);
+      res.add(mid);
+      res.add(low);
+    }
+
     return res;
   }
 
-  private static Array<Integer> pairMove(Array<Integer> pattern) {
+  private static Array<Integer> pairMove(Array<Integer> pattern, Array<Boolean> mask) {
     Map.Entry<Integer, Array<Integer>> max = simplify(pattern, simMap);
-    if (max.getValue().size == 3) {
-      Array<Integer> pair = getPair(max);
-      if (pair != null) {
-        max.getValue().addAll(pair);
-        return max.getValue();
+    if (max.getValue().size == 3) { //cù xám
+      if (mask.get(0)) {
+        Array<Integer> pair = getPair(max);
+        if (pair != null) {
+          max.getValue().addAll(pair);
+          return max.getValue();
+        }
       }
 
-      Array<Integer> cMove = cMove(pattern);
+      Array<Integer> cMove = cMove(pattern, mask);
       if (cMove != null) return cMove;
 
       Array<Integer> two = getCustom(max, 2);
       max.getValue().addAll(two);
       return max.getValue();
     }
-    if (max.getValue().size == 4) {
+    if (max.getValue().size == 4) { //tứ quý
       Array<Integer> one = getCustom(max, 1);
       max.getValue().addAll(one);
       return max.getValue();
     }
-    if (max.getValue().size == 2) {
-      Array<Integer> cMove = cMove(pattern);
+    if (max.getValue().size == 2) { //chỉ có đôi, check sảnh thùng trước
+      Array<Integer> cMove = cMove(pattern, mask);
       if (cMove != null) return cMove;
 
       Array<Integer> pair = getPair(max);
@@ -72,8 +94,8 @@ public class MV2 {
       max.getValue().addAll(three);
       return max.getValue();
     }
-    if (max.getValue().size == 1) {
-      Array<Integer> cMove = cMove(pattern);
+    if (max.getValue().size == 1) { //bài không có một đôi nào, (chi giữa, chi trên)
+      Array<Integer> cMove = cMove(pattern, mask);
       if (cMove != null) return cMove;
 
       Array<Integer> four = getCustom(max, 4);
@@ -131,7 +153,7 @@ public class MV2 {
     base.add(base.get(0));
     for (int i = 0; i < base.size - 5; i++) {
       boolean isConsecutive = true;
-      for (int j = i; j < 5; j++) {
+      for (int j = 0; j < 5; j++) {
         if (base.get(i + j).getValue() == null) {
           isConsecutive = false;
           break;
@@ -145,9 +167,12 @@ public class MV2 {
     return null;
   }
 
-  private static Array<Integer> cMove(Array<Integer> pattern) {
-    Array<Integer> colorM = colorMove(pattern);
-    if (colorM != null) return colorM;
+  private static Array<Integer> cMove(Array<Integer> pattern, Array<Boolean> mask) {
+    if (mask.get(1)) {
+      Array<Integer> colorM = colorMove(pattern);
+      if (colorM != null) return colorM;
+    }
+
     Array<Integer> conseM = consecutiveMove((pattern));
     if (conseM != null) return  conseM;
     return null;

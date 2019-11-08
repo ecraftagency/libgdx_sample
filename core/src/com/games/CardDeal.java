@@ -19,14 +19,14 @@ public class CardDeal extends XGame {
   @Override
   public void _create() {
     stage = new Stage(new ScreenViewport(), batch);
-    for (int i = 1; i < 52; i++)
+    for (int i = 1; i < 14; i++)
       G.c(Image.class).k(i + "").p(0, 0).o(Align.center).add(stage);
     move();
   }
 
   private void move() {
     Array<Actor> actors = stage.getActors();
-    int idx = 0; final float step = 0.1f, x = 400, y = 400, r = 360, d = 0.4f;
+    int idx = 0; final float step = 0.02f, x = 400, y = 400, r = 720, d = 0.4f;
     for (Actor actor : actors) {
       actor.addAction(
         sequence(
