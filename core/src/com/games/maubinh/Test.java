@@ -36,8 +36,13 @@ public class Test {
 //    move("AR", "9R", "6R", "4R", "3R", "KB", "3Ch", "5B", "6B", "7C", "JB", "10C", "QCh");
 
 
-//    //sanh rong
-//    move("AR", "KR", "QR", "JR", "10R", "9B", "8B", "7B", "6B", "5B", "4B", "2B", "3B");
+    //sanh rong
+    //move("AR", "KR", "QR", "JR", "10R", "9B", "8B", "7B", "6B", "5B", "4B", "2B", "3B");
+
+    //luc phe bon
+    //move("AC","AB","KC","KB","10C","10R","2Ch","2C","3R","3Ch","5Ch","5B","7Ch"); //6 doi 1 le
+    //move("AC","AB","ACh","AR","10C","10R","2Ch","2C","3R","3Ch","5Ch","5B","7Ch"); //4 quy 4 doi 1 le
+    //move("AC","AB","ACh","AR","10C","10R","10Ch","10B","3R","3Ch","5Ch","5B","7Ch"); //2 4 quy 2 doi 1 le
 
     //ba thung
     //move("AB","3B","5B","7B","8B","2Ch","ACh","9Ch","7Ch","2Ch","6C","KC","QC");
@@ -45,8 +50,8 @@ public class Test {
     //move("AB","KB","2B","AR","KR","QR","JR","10R","9R","8R","7R","6R","5R");
 
     //ba sanh
-    move("5B","6C","7B","8B","9B","6Ch","7C","8C","9C","10C","AC","2C","3C");
-    move("10C","JC","QC","KC","AC","10B","JB","QB","KB","AB","QCh","KCh","AB");
+    //move("5B","6C","7B","8B","9B","6Ch","7C","8C","9C","10C","AC","2C","3C");
+    //move("10C","JC","QC","KC","AC","10B","JB","QB","KB","AB","QCh","KCh","AR");
 
     //binh nhu cu
     //move("ACh", "KCh", "QB", "JCh", "10B", "8R", "8C", "2C", "2R", "4Ch", "9C", "7R", "QC");

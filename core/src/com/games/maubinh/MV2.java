@@ -294,21 +294,37 @@ public class MV2 {
       zColor &= pattern.get(i)&typeMask;
       zValue |= pattern.get(i)&valueMask;
     }
+
     color.sort((a, b) -> Integer.compare(a.size, b.size));
 
+    Array<Array<Integer>> value = new Array<>();
+    for (Map.Entry<Integer, Array<Integer>> v : simMap.entrySet()) value.add(v.getValue());
+    value.sort((a, b) -> Integer.compare(a.size, b.size));
 
     if (zValue == 0x1FFF && zColor != 0)//sanh cuon
       return 15;
     if (zValue == 0x1FFF)//sanh rong
       return 14;
 
-    int c = 0;//3 thung
+    int c = 0;
+    for (int i = 0; i < value.size; i++)
+      c = c*10 + value.get(i).size;
+    if (c == 2222223 || c == 22234 || c == 2344)
+      return 13;
+
+    c = 0;
+    for (int i = 0; i < value.size; i++)
+      c = c*10 + value.get(i).size;
+    if (c == 1222222 || c == 122224 || c == 12244 || c == 1444)
+      return 12;
+
+    c = 0;//3 thung
     for (int i = 0; i < color.size; i++)
       c = c*10 + color.get(i).size;
     if (c == 355 || c == 58 || c == 40)
       return 11;
 
-    if (isTripleConsecutive(pattern))
+    if (isTripleConsecutive(pattern)) //3 sanh
       return 10;
     return 0;
   }
