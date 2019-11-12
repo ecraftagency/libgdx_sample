@@ -11,8 +11,8 @@ import java.util.TreeMap;
 
 public class MV2 {
   public static final ArrayMap<Integer, String> nameMap = new ArrayMap<>();
-  public static final int valueMask = Integer.parseInt("00001111111111111", 2);
-  public static final int typeMask = Integer.parseInt( "11110000000000000", 2);
+  public static final int valueMask = 0b00001111111111111;
+  public static final int typeMask = 0b11110000000000000;
   private static TreeMap<Integer, Array<Integer>> simMap;
   private static TreeMap<Integer, Array<Integer>> rsimMap = new TreeMap<>(Collections.reverseOrder());
   private static Array<Array<Integer>> color = new Array<>();
@@ -39,15 +39,15 @@ public class MV2 {
         case 2: //doi
           type  = 1;
           break;
-        case 3:
-          if ((value>>12) == 1 && (value & 3) == 3) {
-            type = 4;
-            value = 3;
-            break;
-          }
-          while(value%2 == 0) value >>= 1;
-          type += value == 7 ? 4 : 0;
-          break;
+//        case 3:
+//          if ((value>>12) == 1 && (value & 3) == 3) {
+//            type = 4;
+//            value = 3;
+//            break;
+//          }
+//          while(value%2 == 0) value >>= 1;
+//          type += value == 7 ? 4 : 0;
+//          break;
         default:
           break;
       }
@@ -287,7 +287,54 @@ public class MV2 {
     return false;
   }
 
-  public static int isSuperSaiyan(Array<Integer> pattern) {
+  private static Array<Array<Integer>> platify(Array<Integer> pattern) {
+    simplify(pattern, simMap, false);
+    Array<Array<Integer>> value = new Array<>();
+    for (Map.Entry<Integer, Array<Integer>> v : simMap.entrySet()) value.add(v.getValue());
+
+    for (Array<Integer> a : value) a.sort(MV2::compareCard);
+
+    value.sort((a1, a2) -> {
+      if (a2.size > a1.size) return 1;
+      if (a2.size < a1.size) return -1;
+      int c1 = a1.get(0), c2 = a2.get(0);
+      return compareCard(c1, c2);
+    });
+
+    return value;
+  }
+
+  private static int compareCard(Integer c1, Integer c2) {
+    int color1 = c1>>13;
+    int color2 = c2>>13;
+    int value1 = (c1&valueMask)<<4;
+    int value2 = (c2&valueMask)<<4;
+    int final1 = value1|color1;
+    int final2 = value2|color2;
+    return Integer.compare(final2, final1);
+  }
+
+  private static boolean validateHeadMid(Array<Array<Integer>> move) {
+    int rH = check(move.get(0))>>13;
+    int rM = check(move.get(1))>>13;
+
+    Array<Array<Integer>> simH = platify(move.get(0));
+    Array<Array<Integer>> simM = platify(move.get(1));
+
+    if (rH < rM) return true;
+    if (rH > rM) return false;
+    return compareCard(simH.get(0).get(0), simM.get(0).get(0)) <= 0;
+  }
+
+  @FunctionalInterface
+  private interface CheckInterface {
+    int check(Array<Integer> cards);
+  }
+
+  //-----------------------------------------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+  public static int checkSuper(Array<Integer> pattern) {
     simplify(pattern, simMap, true);
     int zColor = pattern.get(0)&typeMask, zValue = pattern.get(0)&valueMask;
     for (int i = 1; i < pattern.size; i++) {
@@ -327,6 +374,14 @@ public class MV2 {
     if (isTripleConsecutive(pattern)) //3 sanh
       return 10;
     return 0;
+  }
+
+  public static boolean validate(Array<Array<Integer>> move) {
+    Array<Integer> mid = move.get(1);
+    Array<Integer> low = move.get(2);
+    if (compare(mid, low) <= 0)
+      return validateHeadMid(move);
+    return false;
   }
 
   public static Array<Integer> makeCards() {
@@ -398,83 +453,43 @@ public class MV2 {
     return res;
   }
 
-//  public static int check3(Array<Integer> cards) {
-//    if (cards.size != 3) throw new InvalidParameterException("not enough card");
-//    int value = cards.get(0);
-//    for (int i = 1; i < cards.size; i++)
-//      value |= cards.get(i);
-//
-//    value &= valueMask;
-//    switch (Integer.bitCount(value)){
-//      case 1:
-//        return 3;
-//      case 2:
-//        return 1;
-//      case 3:
-//        if ((value>>12) == 1 && (value & 3) == 3){
-//          return 4;
-//        }
-//        while(value%2 == 0) value >>= 1;
-//        return value == 7 ? 4 : 0;
-//      default:
-//        return 0;
-//    }
-//  }
-//
-//  public static int check5(Array<Integer> cards) {
-//    if (cards.size != 5) throw new InvalidParameterException("not enough card");
-//
-//    dupMap.clear();
-//    int color = cards.get(0);
-//    int value = cards.get(0);
-//    int maxDup = 0;
-//
-//    Integer d = dupMap.get(cards.get(0)&valueMask);
-//    dupMap.put(cards.get(0)&valueMask, (d == null) ? 0 : d + 1);
-//
-//    for (int i = 1; i < cards.size; i++) {
-//      color &= cards.get(i);
-//      value |= cards.get(i);
-//
-//      Integer _d = dupMap.get(cards.get(i)&valueMask);
-//      dupMap.put(cards.get(i)&valueMask, (_d == null) ? 0 : _d + 1);
-//      _d = dupMap.get(cards.get(i)&valueMask);
-//      maxDup = maxDup < _d ? _d : maxDup;
-//    }
-//    int type = Integer.bitCount(color&typeMask)*5;
-//    value &= valueMask;
-//    switch (Integer.bitCount(value)){
-//      case 2://aaabb, aaaab
-//        type += maxDup == 3 ? 7 : 6;
-//        break;
-//      case 3://aaabc aabbc
-//        type += type == 5 ? 0 : maxDup == 2 ? 3 : 2;
-//        break;
-//      case 4://abcdd
-//        type += type == 5 ? 0 : 1;
-//        break;
-//      case 5:
-//        if ((value>>12) == 1 && (value & 15) == 15){
-//          type += 4;
-//          value = 15;
-//          break;
-//        }
-//        while(value%2 == 0) value >>= 1;
-//        type += value == 31 ? 4 : 0;
-//        break;
-//      default:
-//        type += 0;
-//        break;
-//    }
-//    return (type<<13) + value;
-//  }
-
   public static int check(Array<Integer> cards) {
     return checkInterfaces[cards.size].check(cards);
   }
 
-  @FunctionalInterface
-  private interface CheckInterface {
-    int check(Array<Integer> cards);
+  public static int compare(Array<Integer> patternA, Array<Integer> patternB) {
+    int rA = check(patternA);
+    int rB = check(patternB);
+
+    int tA = rA&typeMask;
+    int tB = rB&typeMask;
+    if (tA > tB) return 1;
+    if (tA < tB) return -1;
+
+//    int vA = rA&valueMask;
+//    int vB = rB&valueMask;
+//    if (vA > vB) return 1;
+//    if (vA < vB) return -1;
+
+    int sA = 0,sB = 0,aA = 0, aB = 0;
+    for (int i = 0; i < patternA.size; i++) {
+      sA += patternA.get(i);
+      sB += patternB.get(i);
+      aA += (patternA.get(i)&typeMask)*(patternA.get(i)&valueMask);
+      aB += (patternB.get(i)&typeMask)*(patternB.get(i)&valueMask);
+
+    }
+    if (sA > sB) return 1;
+    if (sA < sB) return -1;
+    if (aA > aB) return 1;
+    if (aA < aB) return -1;
+
+    for (int i = 0; i < patternA.size; i++){
+      System.out.print(nameMap.get(patternA.get(i)) + " ");
+      System.out.print(nameMap.get(patternB.get(i)) + " ");
+      System.out.println();
+    }
+    System.out.println();
+    throw new InvalidParameterException("card duplicate");
   }
 }

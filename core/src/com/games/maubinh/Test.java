@@ -54,14 +54,18 @@ public class Test {
     //move("10C","JC","QC","KC","AC","10B","JB","QB","KB","AB","QCh","KCh","AR");
 
     //binh nhu cu
-    //move("ACh", "KCh", "QB", "JCh", "10B", "8R", "8C", "2C", "2R", "4Ch", "9C", "7R", "QC");
+    move("ACh", "KCh", "QB", "JCh", "10B", "8R", "8C", "2C", "2R", "4Ch", "9C", "7R", "QC");
+
   }
 
   private static void move(String ...cards) {
     System.out.println();
     Array<Integer> pattern = makeCards(cards);
-    System.out.println(m.get(MV2.isSuperSaiyan(pattern)));
+    System.out.println(m.get(MV2.checkSuper(pattern)));
+
     Array<Array<Integer>> moves = MV2.move(pattern);
+
+    System.out.println(MV2.validate(moves));
     printMove(moves);
   }
 
