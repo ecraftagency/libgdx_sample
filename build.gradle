@@ -109,6 +109,7 @@ project(":core") {
         compile "com.kotcrab.vis:vis-ui:$visuiVersion"
         compile "org.mini2Dx:universal-tween-engine:6.3.3"
         compile "org.mini2Dx:universal-tween-engine:6.3.3:sources"
+        compile "com.esotericsoftware.spine:spine-libgdx:3.8.55.1"
     }
 }
 

@@ -54,8 +54,15 @@ public class Test {
     //move("10C","JC","QC","KC","AC","10B","JB","QB","KB","AB","QCh","KCh","AR");
 
     //binh nhu cu
-    move("ACh", "KCh", "QB", "JCh", "10B", "8R", "8C", "2C", "2R", "4Ch", "9C", "7R", "QC");
+    //move("ACh", "KCh", "QB", "JCh", "10B", "8R", "8C", "2C", "2R", "4Ch", "9C", "7R", "QC");
 
+    //test binh lung
+    Array<Array<Integer>> cards = new Array<>();
+    cards.add(makeCards("8R","6Ch","AB"));
+    cards.add(makeCards("3C","8C","4C","7R","8B"));
+    cards.add(makeCards("QR","KR","10C","2C","QB"));
+    printMove(cards);
+    System.out.println(MV2.validate(cards));
   }
 
   private static void move(String ...cards) {

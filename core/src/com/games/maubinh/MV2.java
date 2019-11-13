@@ -323,7 +323,7 @@ public class MV2 {
 
     if (rH < rM) return true;
     if (rH > rM) return false;
-    return compareCard(simH.get(0).get(0), simM.get(0).get(0)) <= 0;
+    return compareCard(simH.get(0).get(0), simM.get(0).get(0)) >= 0;
   }
 
   @FunctionalInterface
@@ -466,30 +466,34 @@ public class MV2 {
     if (tA > tB) return 1;
     if (tA < tB) return -1;
 
+    Array<Array<Integer>> simA = platify(patternA);
+    Array<Array<Integer>> simB = platify(patternB);
+    return compareCard(simB.get(0).get(0), simA.get(0).get(0));
+
 //    int vA = rA&valueMask;
 //    int vB = rB&valueMask;
 //    if (vA > vB) return 1;
 //    if (vA < vB) return -1;
 
-    int sA = 0,sB = 0,aA = 0, aB = 0;
-    for (int i = 0; i < patternA.size; i++) {
-      sA += patternA.get(i);
-      sB += patternB.get(i);
-      aA += (patternA.get(i)&typeMask)*(patternA.get(i)&valueMask);
-      aB += (patternB.get(i)&typeMask)*(patternB.get(i)&valueMask);
-
-    }
-    if (sA > sB) return 1;
-    if (sA < sB) return -1;
-    if (aA > aB) return 1;
-    if (aA < aB) return -1;
-
-    for (int i = 0; i < patternA.size; i++){
-      System.out.print(nameMap.get(patternA.get(i)) + " ");
-      System.out.print(nameMap.get(patternB.get(i)) + " ");
-      System.out.println();
-    }
-    System.out.println();
-    throw new InvalidParameterException("card duplicate");
+//    int sA = 0,sB = 0,aA = 0, aB = 0;
+//    for (int i = 0; i < patternA.size; i++) {
+//      sA += patternA.get(i);
+//      sB += patternB.get(i);
+//      aA += (patternA.get(i)&typeMask)*(patternA.get(i)&valueMask);
+//      aB += (patternB.get(i)&typeMask)*(patternB.get(i)&valueMask);
+//
+//    }
+//    if (sA > sB) return 1;
+//    if (sA < sB) return -1;
+//    if (aA > aB) return 1;
+//    if (aA < aB) return -1;
+//
+//    for (int i = 0; i < patternA.size; i++){
+//      System.out.print(nameMap.get(patternA.get(i)) + " ");
+//      System.out.print(nameMap.get(patternB.get(i)) + " ");
+//      System.out.println();
+//    }
+//    System.out.println();
+//    throw new InvalidParameterException("card duplicate");
   }
 }

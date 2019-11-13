@@ -15,6 +15,7 @@ import com.common.X;
 import com.common.XGame;
 import com.games.CardDeal;
 import com.games.LinearAlgebra;
+import com.games.Spine;
 import com.games.TweenEngine;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -34,6 +35,7 @@ public class Root implements ApplicationListener {
     games.add(LinearAlgebra.class);
     games.add(TweenEngine.class);
     games.add(CardDeal.class);
+    games.add(Spine.class);
   }
 
   @SuppressWarnings("unchecked")

@@ -105,15 +105,7 @@ public class P {
     };
   }
 
-  /**
-   * Tìm ra 5 lá bài có nước binh lớn nhất trong 5 (lá trên bàn) + 2 (lá trên tay)
-   * với điều kiện kết quả phải có ít nhất 1 lá đến từ 2 lá trên tay
-   * không áp dung với các trường hợp binh 2,3,4 lá.
-   * @param deck 5 lá trên bàn
-   * @param hand 2 lá trên tay
-   * @return 5 lá lớn nhất theo luật nêu trên
-   * @exception InvalidParameterException deck không đúng 5 lá bài
-   */
+
   public static Array<Integer> move(Array<Integer> deck, Array<Integer> hand) {
     Array<Array<Integer>> sub3 = subset(deck, 3);
     Array<Array<Integer>> sub4 = subset(deck, 4);
@@ -131,13 +123,7 @@ public class P {
     return findBiggest(sub44);
   }
 
-  /**
-   * Trả về 5 lá có nước binh lớn nhất trong danh sách các Array có 5 phần tử
-   * @param arg danh sách các Array<Integer> (a1,a2,a3,....,aN) a kiểu Array<Integer>
-   * @return phần tử có nước binh cao nhất
-   * @exception InvalidParameterException nếu bất kì trong (a1,a2,a2...aN)
-   * không đủ 5 phần tử
-   */
+
   @SafeVarargs
   public static Array<Integer> findBiggest(Array<Integer> ...arg) {
     Array<Integer> result = null;
@@ -158,16 +144,7 @@ public class P {
     return result;
   }
 
-  /**
-   * trả về nước binh lớn nhất có thể binh được trong 5 lá
-   * @param cards 5 (đúng 5) lá cần kiểm tra nước binh
-   * @return [0000][0000000000000]:int
-   * 4 bit đầu (return>>13):
-   * [0 - Mậu thầu, 1 - Dzách, 2 - Thú, 3 - Xám , 4 - Sảnh,
-   * 5 Thùng, 6 - Cù, 7 - Tứ Quý, 9 - Thùng Phá Sảnh]
-   * 13 bit sau: không cần quan tâm
-   * @exception InvalidParameterException input không đủ 5 lá bài
-   */
+
   public static int check5(Array<Integer> cards) {
     return checkInterfaces[cards.size].check(cards);
   }
