@@ -2,6 +2,7 @@ package com.games.maubinh;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
+import com.badlogic.gdx.utils.Json;
 
 public class Test {
   private static ArrayMap<Integer, String> m = new ArrayMap<>();
@@ -91,4 +92,11 @@ public class Test {
       System.out.println(m.get(c));
     }
   }
+
+  private static class Level {
+    int n;
+    int s;
+    int[] l;
+  }
+
 }

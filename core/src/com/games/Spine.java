@@ -34,26 +34,27 @@ public class Spine extends XGame {
     debugRenderer.setRegionAttachments(false);
 
 
-    atlas = new TextureAtlas(Gdx.files.internal("skeletal/spineboy/spineboy-pma.atlas"));
+    atlas = new TextureAtlas(Gdx.files.internal("skeletal/dragon/dragon-pma.atlas"));
     SkeletonBinary json = new SkeletonBinary(atlas);
     json.setScale(0.6f); // Load the skeleton at 60% the size it was in Spine.
-    SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("skeletal/spineboy/spineboy-ess.skel"));
+    SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("skeletal/dragon/dragon-ess.skel"));
 
 
     skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
-    skeleton.setPosition(250, 20);
+    skeleton.setPosition(250, 200);
 
     AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
-    stateData.setMix("run", "jump", 0.2f);
-    stateData.setMix("jump", "run", 0.2f);
+    //stateData.setMix("run", "jump", 0.2f);
+    //stateData.setMix("jump", "run", 0.2f);
 
     state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
     state.setTimeScale(1f); // Slow all animations down to 50% speed.
 
     // Queue animations on track 0.
-    state.setAnimation(0, "run", true);
-    state.addAnimation(0, "jump", false, 2); // Jump after 2 seconds.
-    state.addAnimation(0, "run", true, 0); // Run after the jump.
+//    state.setAnimation(0, "run", true);
+//    state.addAnimation(0, "jump", false, 2); // Jump after 2 seconds.
+//    state.addAnimation(0, "run", true, 0); // Run after the jump.
+    state.setAnimation(0, "flying", true);
   }
 
   @Override
@@ -74,7 +75,7 @@ public class Spine extends XGame {
     renderer.draw(batch, skeleton); // Draw the skeleton images.
     batch.end();
 
-    debugRenderer.draw(skeleton); // Draw debug lines.
+    //debugRenderer.draw(skeleton); // Draw debug lines.
   }
 
   @Override
