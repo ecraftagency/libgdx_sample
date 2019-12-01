@@ -16,12 +16,11 @@ import com.esotericsoftware.spine.SkeletonRendererDebug;
 
 public class Spine extends XGame {
   OrthographicCamera camera;
-  SkeletonRenderer renderer;
-  SkeletonRendererDebug debugRenderer;
-
   TextureAtlas atlas;
   Skeleton skeleton;
   AnimationState state;
+  SkeletonRenderer renderer;
+  SkeletonRendererDebug debugRenderer;
 
   @Override
   public void _create() {

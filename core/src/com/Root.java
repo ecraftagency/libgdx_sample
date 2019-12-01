@@ -15,6 +15,7 @@ import com.common.X;
 import com.common.XGame;
 import com.games.CardDeal;
 import com.games.LinearAlgebra;
+import com.games.Plane;
 import com.games.Spine;
 import com.games.TweenEngine;
 import com.kotcrab.vis.ui.VisUI;
@@ -36,6 +37,7 @@ public class Root implements ApplicationListener {
     games.add(TweenEngine.class);
     games.add(CardDeal.class);
     games.add(Spine.class);
+    games.add(Plane.class);
   }
 
   @SuppressWarnings("unchecked")
@@ -63,7 +65,7 @@ public class Root implements ApplicationListener {
       }
     });
     initGameList(select);
-    select.setSelectedIndex(4);
+    select.setSelectedIndex(6);
 
     Table root = (Table) G.c(Table.class).add(rootUI).ub();
     root.setFillParent(true);root.pad(10);
